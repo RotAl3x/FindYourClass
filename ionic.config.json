@@ -1,0 +1,7 @@
+{
+  "name": "FindYourClass",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
