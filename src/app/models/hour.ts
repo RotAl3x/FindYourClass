@@ -5,7 +5,8 @@ export interface IHour {
     id:string,
     location: ILocation,
     locationId:string,
-    startHour: string,
-    endHour: string,
+    startHour: Date,
+    endHour: Date,
+    courseName: string,
     datesToHour: IDatesToHour[]
 }

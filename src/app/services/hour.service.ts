@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {environment} from "../../environments/environment";
 import {HttpClient} from "@angular/common/http";
-import {firstValueFrom} from "rxjs";
+import {firstValueFrom, lastValueFrom} from "rxjs";
 import {IHour} from "../models/hour";
 import {AuthService} from "./auth-service.service";
 
@@ -25,13 +25,12 @@ export class HourService {
   public async getAllByUserId(): Promise<IHour[]> {
     const url = this._baseUrl + `api/hour/userId`
     const options = await this.authService.getOptions(true);
-    const test= await firstValueFrom(this.http.get<IHour[]>(url,options));
-    console.log(test);
-    return test;
+    const test= await lastValueFrom(this.http.get<string>(url,options));
+    return JSON.parse(test);
   }
 
   public async create(data: Partial<IHour>): Promise<IHour> {
-    const url = this._baseUrl + 'api/course';
+    const url = this._baseUrl + 'api/hour';
     const options = await this.authService.getOptions(true);
     return await firstValueFrom(this.http.post<IHour>(url, data, options));
   }
