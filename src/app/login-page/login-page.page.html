@@ -1,0 +1,28 @@
+
+<ion-content>
+  <form [formGroup]="formData" (ngSubmit)="onSubmit()">
+    <ion-list>
+      <ion-item>
+        <ion-input label="Email" formControlName="email"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-input label="Password" type="password" formControlName="password"></ion-input>
+      </ion-item>
+
+      <ion-button type="submit" expand="block">Submit</ion-button>
+    </ion-list>
+  </form>
+  <ion-toast
+    [isOpen]="isToastOpen"
+    message="Login successfully"
+    [duration]="5000"
+    (didDismiss)="setOpen(false)"
+  ></ion-toast>
+  <ion-toast
+    [isOpen]="isToastErrorOpen"
+    message="Login failed"
+    [duration]="5000"
+    (didDismiss)="setOpenError(false)"
+  ></ion-toast>
+</ion-content>
