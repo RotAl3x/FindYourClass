@@ -4,10 +4,9 @@ import {HourService} from "../services/hour.service";
 import {IonModal} from "@ionic/angular";
 import { OverlayEventDetail } from '@ionic/core/components';
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
-import {delay} from "rxjs";
 import {ILocation} from "../models/location";
 import {LocationService} from "../services/location.service";
-import {DatePipe} from "@angular/common";
+import {DatePipe, WeekDay} from "@angular/common";
 
 @Component({
   selector: 'app-tab2',
@@ -15,12 +14,19 @@ import {DatePipe} from "@angular/common";
   styleUrls: ['tab2.page.scss']
 })
 export class Tab2Page implements OnInit{
-  message = 'This modal example uses triggers to automatically open a modal when the button is clicked.';
   name: string='';
   hours:IHour[]=[];
+  allHours:IHour[]=[];
   locations:ILocation[]=[];
   @ViewChild(IonModal) modal: IonModal | undefined;
   formData:FormGroup = new FormGroup({});
+  public dayToSearch= {text: 'Monday',value: 1}
+  public dayPicker = [
+    {
+      name:'weekDay',
+      options: Object.keys(WeekDay).filter(w=>w.length>1).map((w,i)=>{return {text: w,value: i}}),
+    },
+  ];
 
   constructor(private hourService:HourService,
               private formBuilder:FormBuilder,
@@ -38,7 +44,26 @@ export class Tab2Page implements OnInit{
 
   async ngOnInit() {
     this.locations = await this.locationService.getAll();
-    console.log(this.locations)
+    this.allHours= await this.hourService.getAllByUserId();
+    this.hours= this.filterHourByWeekDay()
+  }
+
+  public pickerButtons = [
+    {
+      text: 'Cancel',
+      role: 'cancel',
+    },
+    {
+      text: 'Confirm',
+      handler: (value:any) => {
+        this.dayToSearch = value.weekDay
+        this.hours = this.filterHourByWeekDay()
+      },
+    },
+  ];
+
+  filterHourByWeekDay(){
+    return this.allHours.filter(h=>h.datesToHour.filter(d=>new Date(d.date).getDay() == this.dayToSearch.value).length>0)
   }
 
   async cancel() {
@@ -57,7 +82,7 @@ export class Tab2Page implements OnInit{
   }
 
   dateToHour (date:Date){
-    return this.datePipe.transform(date,'h:mm');
+    return this.datePipe.transform(date,'hh:mm');
   }
 
   async onSubmit(){

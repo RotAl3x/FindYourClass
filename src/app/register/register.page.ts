@@ -5,13 +5,13 @@ import {Router} from "@angular/router";
 const delay = (ms: number) => new Promise(res => setTimeout(res, ms));
 
 @Component({
-  selector: 'app-login-page',
-  templateUrl: './login-page.page.html',
-  styleUrls: ['./login-page.page.scss'],
+  selector: 'app-register',
+  templateUrl: './register.page.html',
+  styleUrls: ['./register.page.scss'],
 })
-export class LoginPagePage implements OnInit {
+export class RegisterPage implements OnInit {
 
- formData:FormGroup = new FormGroup({});
+  formData:FormGroup = new FormGroup({});
   isToastOpen = false;
   toastMessage='';
 
@@ -20,8 +20,10 @@ export class LoginPagePage implements OnInit {
 
   ngOnInit() {
     this.formData = new FormGroup({
-      email: new FormControl('', [Validators.required, Validators.email]),
-      password: new FormControl('', Validators.required),
+      email: new FormControl('',[Validators.required, Validators.email]),
+      password: new FormControl('',Validators.required),
+      firstName: new FormControl('',Validators.required),
+      lastName:new FormControl('',Validators.required),
     })
   }
 
@@ -29,7 +31,6 @@ export class LoginPagePage implements OnInit {
     this.isToastOpen = isOpen;
     this.toastMessage = message;
   }
-
   async onSubmit(){
     this.formData.markAllAsTouched();
     if (!this.formData.valid) {
@@ -37,10 +38,10 @@ export class LoginPagePage implements OnInit {
       return;
     }
     try {
-      await this.authService.login(this.formData.value);
-      this.setOpen(true,"Login successfully");
+      await this.authService.register(this.formData.value);
       await delay(1000);
-      await this.router.navigate(['tabs']);
+      this.setOpen(true,"The account has been created");
+      await this.router.navigate(['']);
     } catch (e:any) {
       this.setOpen(true,e.error);
     }

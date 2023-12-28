@@ -24,3 +24,22 @@
 @import "@ionic/angular/css/text-alignment.css";
 @import "@ionic/angular/css/text-transformation.css";
 @import "@ionic/angular/css/flex-utils.css";
+
+.error-message{
+  color: red !important;
+  font-size: 12px;
+  margin-left: 7%;
+}
+
+ion-list{
+  margin-bottom: 15px;
+}
+
+.d-flex{
+  display: flex;
+}
+
+.flex-column{
+  flex-direction: column;
+}
+
