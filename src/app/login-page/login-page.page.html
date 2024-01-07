@@ -5,10 +5,10 @@
         <ion-input label="Email*" formControlName="email"></ion-input>
       </ion-item>
       <div class="error-container">
-          <div class="error-message" *ngIf="formData.controls['email'].errors?.['email']">
-            <ion-icon name="information-circle-outline"></ion-icon>
-            <span>Invalid email</span>
-          </div>
+        <div class="error-message" *ngIf="formData.controls['email'].errors?.['email']">
+          <ion-icon name="information-circle-outline"></ion-icon>
+          <span>Invalid email</span>
+        </div>
       </div>
 
       <div class="error-container">
@@ -29,8 +29,8 @@
       </div>
     </ion-list>
 
-      <ion-button type="submit" expand="block">Submit</ion-button>
-      <ion-button expand="block" href="/register">Register</ion-button>
+    <ion-button type="submit" expand="block">Submit</ion-button>
+    <ion-button expand="block" href="/register">Register</ion-button>
   </form>
   <ion-toast
     [isOpen]="isToastOpen"

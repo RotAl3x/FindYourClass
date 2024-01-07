@@ -69,6 +69,7 @@ export class Tab2Page implements OnInit{
   async cancel() {
     // @ts-ignore
     this.modal.dismiss(null, 'cancel');
+      window.location.reload();
     this.allHours= await this.hourService.getAllByUserId();
     this.hours= this.filterHourByWeekDay()
   }
