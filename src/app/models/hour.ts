@@ -8,5 +8,5 @@ export interface IHour {
     startHour: Date,
     endHour: Date,
     courseName: string,
-    datesToHour: IDatesToHour[]
+    datesToHour: IDatesToHour[],
 }

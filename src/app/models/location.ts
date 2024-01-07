@@ -4,4 +4,5 @@ export interface ILocation {
     latitude: number,
     longitude: number,
     videoPath: string,
+     openMap?: boolean
 }

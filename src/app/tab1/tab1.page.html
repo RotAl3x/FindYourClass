@@ -1,24 +1,39 @@
 <ion-content>
   <div class="d-flex ion-align-items-center ion-justify-content-center flex-column">
     <ion-item>
-      <ion-button id="open-picker">{{dayToSearch.text}}</ion-button>
+      <ion-datetime-button datetime="datetime"></ion-datetime-button>
     </ion-item>
   </div>
+  <ion-modal [keepContentsMounted]="true">
+    <ng-template>
+      <ion-datetime id="datetime" presentation="date" [(ngModel)]="searchData">
+        <ion-buttons slot="buttons">
+          <ion-button color="primary" (click)="confirmDate()">Confirm</ion-button>
+        </ion-buttons>
+      </ion-datetime>
+    </ng-template>
+  </ion-modal>
   <ion-item *ngFor="let hour of hours">
-    <ion-item-divider class="d-flex flex-column ion-align-items-end width-hours">
-      <ion-label>{{dateToHour(hour.startHour)}}</ion-label>
-      <ion-label>{{dateToHour(hour.endHour)}}</ion-label>
-    </ion-item-divider>
-    <ion-card color="medium" class="card-container">
-      <ion-card-header class="d-flex flex-row">
-        <ion-label>Location: {{hour.location.name}}</ion-label>
-        <ion-label>Course: {{hour.courseName}}</ion-label>
-      </ion-card-header>
-      <video width="100%" controls>
-        <source [src]="hour.location.videoPath" type="video/mp4">
-      </video>
-      <capacitor-google-map #map></capacitor-google-map>
-      <button (click)="createMap(hour.location.latitude,hour.location.longitude)">Create Map</button>
-    </ion-card>
+    <div class="d-flex ion-align-items-center ion-justify-content-center flex-column">
+      <ion-card color="medium" class="card-container">
+        <ion-card-header class="d-flex flex-row">
+          <ion-label>Location: {{hour.location.name}}</ion-label>
+          <ion-label>Course: {{hour.courseName}}</ion-label>
+        </ion-card-header>
+        <ng-container *ngIf="!hour.location.openMap">
+          <video width="100%" controls>
+            <source [src]="hour.location.videoPath" type="video/mp4">
+          </video>
+        </ng-container>
+        <capacitor-google-map [class.heigth-0]="!hour.location.openMap" #map></capacitor-google-map>
+        <ion-label class="d-flex ion-align-items-center ion-justify-content-center">
+          {{dateToHour(hour.startHour)}}&nbsp;&nbsp;&nbsp;&nbsp;
+          <ion-button class="ion-justify-content-center ion-align-items-center"
+                      (click)="createMap(hour.location.latitude,hour.location.longitude,hour.location,map)">Switch
+          </ion-button>
+          &nbsp;&nbsp;&nbsp;&nbsp;{{dateToHour(hour.endHour)}}
+        </ion-label>
+      </ion-card>
+    </div>
   </ion-item>
 </ion-content>
