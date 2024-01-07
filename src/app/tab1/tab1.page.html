@@ -17,6 +17,8 @@
       <video width="100%" controls>
         <source [src]="hour.location.videoPath" type="video/mp4">
       </video>
+      <capacitor-google-map #map></capacitor-google-map>
+      <button (click)="createMap(hour.location.latitude,hour.location.longitude)">Create Map</button>
     </ion-card>
   </ion-item>
 </ion-content>
