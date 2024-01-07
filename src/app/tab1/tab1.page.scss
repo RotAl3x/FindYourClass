@@ -1,0 +1,17 @@
+.card-container{
+  width: 100% !important;
+  max-width: 75%;
+  margin-left: 0 !important;
+}
+
+.width-hours{
+  max-width: 68px;
+  justify-content: space-between;
+}
+
+ion-datetime{
+  --background: #ffffff;
+  --background-rgb: #ffffff;
+  --wheel-fade-background-rgb: rgb(255,255,255);
+  --wheel-highlight-background: #ffffff;
+}

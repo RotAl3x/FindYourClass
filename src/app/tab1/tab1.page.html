@@ -1,0 +1,22 @@
+<ion-content>
+  <div class="d-flex ion-align-items-center ion-justify-content-center flex-column">
+    <ion-item>
+      <ion-button id="open-picker">{{dayToSearch.text}}</ion-button>
+    </ion-item>
+  </div>
+  <ion-item *ngFor="let hour of hours">
+    <ion-item-divider class="d-flex flex-column ion-align-items-end width-hours">
+      <ion-label>{{dateToHour(hour.startHour)}}</ion-label>
+      <ion-label>{{dateToHour(hour.endHour)}}</ion-label>
+    </ion-item-divider>
+    <ion-card color="medium" class="card-container">
+      <ion-card-header class="d-flex flex-row">
+        <ion-label>Location: {{hour.location.name}}</ion-label>
+        <ion-label>Course: {{hour.courseName}}</ion-label>
+      </ion-card-header>
+      <video width="100%" controls>
+        <source [src]="hour.location.videoPath" type="video/mp4">
+      </video>
+    </ion-card>
+  </ion-item>
+</ion-content>

@@ -69,12 +69,8 @@ export class Tab2Page implements OnInit{
   async cancel() {
     // @ts-ignore
     this.modal.dismiss(null, 'cancel');
-    this.hours= await this.hourService.getAllByUserId();
-  }
-
-  confirm() {
-    // @ts-ignore
-    this.modal.dismiss(null, 'confirm');
+    this.allHours= await this.hourService.getAllByUserId();
+    this.hours= this.filterHourByWeekDay()
   }
 
   onWillDismiss(event: Event) {
@@ -82,7 +78,7 @@ export class Tab2Page implements OnInit{
   }
 
   dateToHour (date:Date){
-    return this.datePipe.transform(date,'hh:mm');
+    return this.datePipe.transform(date,'H:mm');
   }
 
   async onSubmit(){
